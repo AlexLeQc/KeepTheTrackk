@@ -1,50 +1,40 @@
-import { useState, useEffect } from "react";
-import { db } from "./firebase";
-import {
-  collection,
-  onSnapshot,
-  addDoc,
-  deleteDoc,
-  doc,
-  query,
-  orderBy,
-} from "firebase/firestore";
+import { useInventory } from "./hooks/useInventory";
 import AddItemForm from "./components/AddItemForm";
-import InventoryItem from "./components/Inventory/InventoryItem";
+import InventoryStats from "./components/InventoryStats";
+import InventoryActions from "./components/InventoryActions";
+import InventoryList from "./components/InventoryList";
 
 function App() {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    const q = query(collection(db, "inventaire"), orderBy("createdAt", "desc"));
-    return onSnapshot(q, (snapshot) => {
-      setItems(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
-    });
-  }, []);
-
-  const handleAdd = async (nom, quantite) => {
-    await addDoc(collection(db, "inventaire"), {
-      nom,
-      quantite: Number(quantite),
-      createdAt: new Date(),
-    });
-  };
-
-  const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "inventaire", id));
-  };
+  const { items, loading, addItem, deleteItem, stats } = useInventory();
 
   return (
     <div className="container">
-      <h1>Keepthetrackk 📦</h1>
+      <header>
+        <h1>
+          Keepthetrackk
+        </h1>
+        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: 'var(--spacing-xl)' }}>
+          Gestion simplifiée de votre inventaire
+        </p>
+      </header>
 
-      <AddItemForm onAdd={handleAdd} />
+      <AddItemForm onAdd={addItem} />
 
-      <ul className="inventory-list">
-        {items.map((item) => (
-          <InventoryItem key={item.id} item={item} onDelete={handleDelete} />
-        ))}
-      </ul>
+      <section className="inventory-section">
+        <div className="inventory-header">
+          <h2 className="inventory-title">📋 Articles en stock</h2>
+          <div className="inventory-actions">
+            <InventoryStats stats={stats} />
+            <InventoryActions items={items} />
+          </div>
+        </div>
+
+        <InventoryList
+          items={items}
+          onDelete={deleteItem}
+          loading={loading}
+        />
+      </section>
     </div>
   );
 }
