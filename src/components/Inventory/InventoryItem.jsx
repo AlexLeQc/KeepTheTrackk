@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export default function InventoryItem({ item, onDelete }) {
   const formatDate = (date) => {
     if (!date) return '';
@@ -41,9 +43,9 @@ export default function InventoryItem({ item, onDelete }) {
           <span
             className="item-qty"
             style={{
-              backgroundColor: item.quantite === 0 ? 'rgba(239, 68, 68, 0.1)' : 'rgba(16, 185, 129, 0.1)',
+              backgroundColor: item.quantite === 0 ? 'rgba(220, 38, 38, 0.1)' : 'rgba(16, 185, 129, 0.1)',
               color: item.quantite === 0 ? 'var(--danger-color)' : 'var(--success-color)',
-              borderColor: item.quantite === 0 ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)'
+              borderColor: item.quantite === 0 ? 'rgba(220, 38, 38, 0.2)' : 'rgba(16, 185, 129, 0.2)'
             }}
           >
             {item.quantite} {item.quantite === 1 ? 'unité' : 'unités'}
@@ -69,3 +71,13 @@ export default function InventoryItem({ item, onDelete }) {
     </li>
   );
 }
+
+InventoryItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    nom: PropTypes.string.isRequired,
+    quantite: PropTypes.number.isRequired,
+    createdAt: PropTypes.object,
+  }).isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
