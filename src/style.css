@@ -14,7 +14,7 @@
 
   /* Texte pour fond rouge (header, titres principaux) */
   --text-primary-red: #ffffff;
-  --text-secondary-red: #f8fafc;
+  auth-toggle: #f8fafc;
 
   /* Texte pour fond blanc (cartes, contenu) */
   --text-primary-card: #1a1a1a;
@@ -687,7 +687,7 @@ a:hover {
 .btn-link {
   background: none;
   border: none;
-  color: var(--primary-color);
+  color: var(--text-secondary-red);
   cursor: pointer;
   font-size: 0.95rem;
   font-family: inherit;
