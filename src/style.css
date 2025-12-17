@@ -14,7 +14,7 @@
 
   /* Texte pour fond rouge (header, titres principaux) */
   --text-primary-red: #ffffff;
-  auth-toggle: #f8fafc;
+  --text-secondary-red: #f8fafc;
 
   /* Texte pour fond blanc (cartes, contenu) */
   --text-primary-card: #1a1a1a;
