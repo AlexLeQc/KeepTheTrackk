@@ -687,7 +687,7 @@ a:hover {
 .btn-link {
   background: none;
   border: none;
-  color: var(--text-secondary-red);
+  color: var(--primary-color);
   cursor: pointer;
   font-size: 0.95rem;
   font-family: inherit;
